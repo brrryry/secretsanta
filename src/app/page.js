@@ -1,3 +1,5 @@
+"use client"
+
 export default function Home() {
   return (
     <div className="space-y-5">
@@ -9,12 +11,6 @@ export default function Home() {
       <br />
       <p>wanna login? <a href="/login">login</a></p>
       <p>wanna sign up? <a href="/signup">signup</a></p>
-
-      <p>
-        wanna check my full suite of projects? check out my{" "}
-        <a href="/projects">projects</a> page. hopefully theres some good stuff
-        there.
-      </p>
 
       <p>thats it, thanx :)</p>
     </div>
