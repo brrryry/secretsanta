@@ -39,9 +39,8 @@ export async function addUserData(userData) {
     let res = await fs.readFile(`src/data/users.json`);
     let data = JSON.parse(res);
 
-    if (userData.username in data) {
-        ({error: 'username already exists.', status: 400});
-    }
+    //if username exists error
+    if(data[userData.username]) throw ({error: 'username already exists', status: 401});
 
     data[userData.username] = {
         email: email,

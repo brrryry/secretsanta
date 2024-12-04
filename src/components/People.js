@@ -24,7 +24,7 @@ export function People({username, admin, session}) {
                 return;
             } else {
                 setReply(data.message);
-                window.location.href = "/";
+                window.location.href = "./";
             }
         });
     }
