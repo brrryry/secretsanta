@@ -4,6 +4,7 @@ import ENC from 'crypto-js/enc-utf8';
 
 export async function getUserData(username, withPassword = false) {
     const res = await fs.readFile(`src/data/users.json`);
+    
     const data = JSON.parse(res);
 
 

@@ -22,7 +22,6 @@ export async function POST(req, res) {
     return Response.json({success: true, cookie: cookie}, {status: 200})
   
   } catch (error) {
-
     return Response.json({error: error.error}, {status: error.status})
   }
 }

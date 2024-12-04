@@ -29,8 +29,7 @@ export function LoginForm() {
       document.cookie = `auth=${data.cookie}; path=/; max-age=60000;`;
 
 
-     
-      window.location.href = ('/profile/' + username);
+      router.refresh();
     } else {
       let err = await response.json()
       setError(err.error);
