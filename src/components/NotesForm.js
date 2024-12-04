@@ -27,7 +27,7 @@ export function NotesForm({username, targetUser, session}) {
       }
     }
     fetchData();
-  })
+  }, [])
  
   async function handleSubmit(event) {
     event.preventDefault()
@@ -56,16 +56,23 @@ export function NotesForm({username, targetUser, session}) {
     <div>
         <p>user: {targetUser}</p>
         <p>email: {email}</p>
-        <p className="mt-5">notes:</p>
-        <p>{notes ? notes : "nothing for now D:"}</p>
+        <p className="mt-5 underline">notes:</p>
+        {notes ? (
+          <>
+            {notes.split("\n").map((note, index) => (
+              <p key={index}>{note}</p>
+            ))}
+
+          </>
+        ) : <p>nothing for now D:</p>}
 
         <br />
     {targetUser == username && 
         <div>
-        <p>wanna update your notes?</p>
+        <p>wanna update your notes? (u can make it a multiline thing)</p>
         <form onSubmit={handleSubmit}>
-            <div className="m-5">
-            <input type="notes" name="notes" id="notes" placeholder="new notes!" required />
+            <div className="my-5 mr-5">
+            <textarea type="notes" name="notes" id="notes" placeholder="new notes!" className="w-1/5 h-64" required />
             </div>
 
 

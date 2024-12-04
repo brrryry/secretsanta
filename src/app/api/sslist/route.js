@@ -27,8 +27,8 @@ export async function POST(req, res) {
 
     //using nodemailer to send emails, hostway mail 
     let transporter = nodemailer.createTransport({
-        host: 'smtp.siteprotect.com',
-        port: 465,
+        host: '64.26.60.225',
+        port: 587,
         tls: {
             rejectUnauthorized: false
         },
@@ -38,6 +38,15 @@ export async function POST(req, res) {
         }
     });
 
+    transporter.verify(function(error, success) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Server is ready to take our messages");
+        }
+    });
+
+    
     try {
         //loop through list and send emails
         for (let i = 0; i < shuffledUsers.length - 1; i++) {
@@ -52,7 +61,7 @@ export async function POST(req, res) {
                     <p>your secret santa is ` + shuffledUsers[i + 1].username + `. their email is ` + shuffledUsers[i].email + `. 
                     <br />
                     feel free to check out their profile to get an idea of what they like...?
-                    <a href=` + `/profile/${shuffledUsers[i+1].username}` + `>here</a>
+                    <a href=` + `${process.env.WEBSITE_URL}/profile/${shuffledUsers[i+1].username}` + `>here</a>
                     <br />
                     <br />
                     aight peace out 
@@ -71,4 +80,5 @@ export async function POST(req, res) {
         console.log(error);
         return Response.json({error: "something weird happened..."}, {status: 500})
     }
+        
 }

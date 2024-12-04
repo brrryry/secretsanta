@@ -35,19 +35,25 @@ export default async function middleware(req) {
 
   const expired = userData ? (Date.now() - userData.time) > 1000 * 60 * 60 : true
 
+  let good = isValidUser && !expired
 
-
-  if (isAPIRoute && (!isValidUser || expired)) {
+  if (isAPIRoute && !good) {
     return Response.json({error: 'Unauthorized'}, { status: 401 })
   }
 
 
-  if (isProtectedRoute && (!isValidUser || expired)) {
+  if (isProtectedRoute && !good) {
     return NextResponse.redirect(url, {
       headers: {
         'Set-Cookie': 'auth=; Max-Age=0; Path=/; HttpOnly; SameSite=Strict'
       }
     })
+  }
+
+  if(good && path === "/login") {
+    const goodurl = req.nextUrl.clone();
+    goodurl.pathname = "/profile/" + userData.username;
+    return NextResponse.redirect(goodurl);
   }
 
   const response = NextResponse.next();

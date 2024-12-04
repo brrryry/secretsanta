@@ -9,6 +9,7 @@ export function People({username, admin, session}) {
     const [loading, setLoading] = useState(true);
     const [reply, setReply] = useState("");
 
+
     function startSecretSanta() {
         fetch('/api/sslist', {
             method: 'POST',
@@ -23,6 +24,7 @@ export function People({username, admin, session}) {
                 return;
             } else {
                 setReply(data.message);
+                window.location.href = "/";
             }
         });
     }
