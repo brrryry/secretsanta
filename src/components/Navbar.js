@@ -55,12 +55,20 @@ export function Navbar() {
             </Link>
             </>
         ) : 
+
         (
+            <>
             <Link href="/login" className="flex m-0 items-center md:hidden">
                 <p className="inline text-2xl text-purple-200 text-nowrap font-bold align-middle">
                     -- login
                 </p>
             </Link>
+            <Link href="/signup" className="flex m-0 items-center md:hidden">
+            <p className="inline text-2xl text-purple-200 text-nowrap font-bold align-middle">
+                -- signup
+            </p>
+        </Link>
+        </>
         )
         }
       </div>
@@ -86,11 +94,18 @@ export function Navbar() {
             </>
         ) : 
         (
+          <>
             <li>
                 <Link href="/login">
                     <p className="text-2xl text-purple-200 font-bold">login</p>
                 </Link>
             </li>
+            <li>
+                <Link href="/signup">
+                    <p className="text-2xl text-purple-200 font-bold">signup</p>
+                </Link>
+            </li>
+            </>
         )
         }
       </ul>

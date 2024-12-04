@@ -9,8 +9,9 @@ const saltRounds = 10;
 
 export async function checkCode({code}) {
     //get code in data/conf.json
-    const correctCode = process.env.CODE;
+    const correctCode = process.env.CORRECT_CODE;
 
+    console.log(correctCode);
 
     const codeMatch = await bcrypt.compare(code, correctCode);
 
