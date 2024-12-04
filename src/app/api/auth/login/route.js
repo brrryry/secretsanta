@@ -1,19 +1,28 @@
-import { signIn } from '@/lib/auth'
+import { signIn, setCookie } from '@/lib/auth'
+import {encrypt} from '@/lib/data';
+
  
 export async function POST(req, res) {
   try {
-    const { email, password } = req.body
-    await signIn('credentials', { email, password })
+    let newRequest = await req.json();
+    const {username, password} = newRequest;
 
- 
-    res.status(200).json({ success: true })
-  } catch (error) {
-    console.log(error);
-    if (error.type === 'CredentialsSignin') {
-    
-      return new Response(JSON.stringify({ error: 'Invalid credentials' }), {status: 401})
-    } else {
-      return new Response(JSON.stringify({ error: 'An error occurred' }), {status: 500})
+    await signIn({ username, password })
+
+    const cookieData = {
+      username: username,
+      time: Date.now()
     }
+
+
+    const cookie = await encrypt(cookieData);
+
+
+
+    return Response.json({success: true, cookie: cookie}, {status: 200})
+  
+  } catch (error) {
+
+    return Response.json({error: error.error}, {status: error.status})
   }
 }

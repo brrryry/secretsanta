@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 
+import { Navbar } from "@/components/Navbar";
+
 
 import "./globals.css";
 
@@ -14,6 +16,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
         <body className={`${inter.className} overflow-x-hidden`}>
+          <Navbar />
           <main className="w-screen">
             {children}
             <footer className="bg-transparent text-">

@@ -2,9 +2,9 @@
 
 import {useState} from 'react';
 import { useRouter } from 'next/navigation'
-import xss from 'xss' 
-
-export function LoginForm() {
+import xss from 'xss'
+ 
+export function SignupForm() {
   const router = useRouter()
 
   const [error, setError] = useState(null);
@@ -13,44 +13,47 @@ export function LoginForm() {
     event.preventDefault()
  
     const formData = new FormData(event.currentTarget)
+
     const username = xss(formData.get('username'))
+    const email = xss(formData.get('email'))
     const password = xss(formData.get('password'))
+
  
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, email, password }),
     })
  
     if (response.ok) {
-      let data = await response.json();
-
-      //set cookie
-      document.cookie = `auth=${data.cookie}; path=/; max-age=60000;`;
-
-
-     
-      window.location.href = ('/profile/' + username);
+      router.push('/login')
     } else {
-      let err = await response.json()
-      setError(err.error);
+        let err = await response.json()
+        setError(err.error);
     }
   }
  
   return (
     <form onSubmit={handleSubmit}>
+
       <div className="m-5">
         <label htmlFor="username" className="mx-3 black">username</label>
-        <input type="username" name="username" placeholder="username" required />
+        <input type="username" name="username" placeholder="Username" required />
+      </div>
+
+
+      <div className="m-5">
+        <label htmlFor="email" className="mx-3 black">email</label>
+        <input type="email" name="email" placeholder="Email" required />
       </div>
 
 
       <div className="m-5">
         <label htmlFor="password" className="mx-3">password</label>
-        <input type="password" name="password" placeholder="password" required />
+        <input type="password" name="password" placeholder="Password" required />
       </div>
 
-      <button type="submit">login</button>
+      <button type="submit">signup</button>
 
       {error && <p>{error}</p>}
     </form>
