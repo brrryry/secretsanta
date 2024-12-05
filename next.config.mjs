@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+	basePath: '/secretsanta'
+};
 
 export default nextConfig;

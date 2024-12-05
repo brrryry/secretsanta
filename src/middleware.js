@@ -3,11 +3,13 @@ import { cookies } from 'next/headers'
  
 // 1. Specify protected and public routes
 const protectedRoutes = ['/profile', '/sslist', '/api/user', '/api/sslist']
+
  
 export default async function middleware(req) {
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname
-  console.log
+
+
   const isProtectedRoute = protectedRoutes.some(route => path.includes(route))
   const isAPIRoute = path.startsWith('/api/') && !path.startsWith('/api/auth')
 
@@ -19,15 +21,19 @@ export default async function middleware(req) {
 
 
 
-  const res = await fetch('http://localhost:3000/api/auth/decrypt', {
+  const res = await fetch(process.env.WEBSITE_URL + '/api/auth/decrypt', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ ciphertext: cookie })
   })
-
-  userData = await res.json()
+  
+  try {
+  	userData = await res.json()
+  } catch (err) {
+	userData = {}
+  }
 
   if (userData.error || !userData.username) {
     isValidUser = false;
