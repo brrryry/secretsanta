@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { decrypt } from '@/lib/data'
 import { cookies } from 'next/headers'
  
 // 1. Specify protected and public routes
@@ -19,11 +18,24 @@ export default async function middleware(req) {
   let userData = "";
 
 
-  try {
-    userData = cookie ? await decrypt(cookie) : null
-  } catch(error) {
+
+  const res = await fetch('http://localhost:3000/api/auth/decrypt', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ciphertext: cookie })
+  })
+
+  userData = await res.json()
+
+  if (userData.error || !userData.username) {
     isValidUser = false;
   }
+
+
+
+
 
    isValidUser = !!userData?.username && isValidUser;
 
