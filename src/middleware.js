@@ -21,7 +21,7 @@ export default async function middleware(req) {
 
 
 
-  const res = await fetch(process.env.WEBSITE_URL + '/api/auth/decrypt', {
+  const res = await fetch(process.env.WEBSITE_URL + 'api/auth/decrypt', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

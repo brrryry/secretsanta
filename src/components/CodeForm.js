@@ -14,7 +14,7 @@ export function CodeForm({callback}) {
     
     const code = xss(formData.get('code'))
 
-    const response = await fetch('/api/auth/code', {
+    const response = await fetch(process.env.SUB_URL + 'api/auth/code', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),

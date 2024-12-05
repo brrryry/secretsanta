@@ -13,7 +13,7 @@ export function NotesForm({username, targetUser, session}) {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/user/${targetUser}`, {
+      const response = await fetch(`${process.env.SUB_URL}api/user/${targetUser}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', username, session },
       })
@@ -35,7 +35,7 @@ export function NotesForm({username, targetUser, session}) {
     const formData = new FormData(event.currentTarget)
     const notes = xss(formData.get('notes'))
 
-    const response = await fetch('/api/notes', {
+    const response = await fetch(process.env.SUB_URL + 'api/notes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', username, session },
       body: JSON.stringify({ username , notes }),

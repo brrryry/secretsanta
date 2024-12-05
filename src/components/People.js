@@ -11,7 +11,7 @@ export function People({username, admin, session}) {
 
 
     function startSecretSanta() {
-        fetch('/api/sslist', {
+        fetch(process.env.SUB_URL + 'api/sslist', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export function People({username, admin, session}) {
 
     useEffect(() => {
         async function getPeople() {
-            const res = await fetch('/api/user', {
+            const res = await fetch(process.env.SUB_URL + 'api/user', {
                 method: 'GET',
                 headers: {
                     'User': username,

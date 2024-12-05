@@ -19,7 +19,7 @@ export function SignupForm() {
     const password = xss(formData.get('password'))
 
  
-    const response = await fetch('/api/auth/signup', {
+    const response = await fetch(process.env.SUB_URL + 'api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, email, password }),
